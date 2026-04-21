@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code — impostazioni locali personali
+.claude/settings.local.json
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Keystore Android (mai in git)
+*.keystore
+*.jks
