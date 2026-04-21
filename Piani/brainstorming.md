@@ -245,3 +245,37 @@ Dopo Scadenze Frigo Gratis, candidate per sviluppo:
 1. **Bill Splitter Moderno** (ALTA opportunità) - Tip N Split è detestato (1.0 stelle)
 2. **Water Tracker Gamificato** (DISCRETA opportunità) - Mercato in crescita
 3. **App Parcheggio** (ALTA opportunità) - Leader debole, spazio per miglioramento
+
+---
+
+## Lista Priorità App (Aprile 2026)
+
+Aggiornamento dopo sessione di brainstorming estesa. 16 candidate totali ordinate per priorità.
+
+**Criteri di ranking:** retention (= ad impressions AdMob) + dimensione mercato + debolezza competitor + velocità di build.
+
+| # | App | Retention | Mercato | Note opportunità | Build |
+|---|-----|-----------|---------|-----------------|-------|
+| 1 | **Tracker Farmaci & Pillole** | Quotidiana | Enorme | Competitor subscription-heavy, architettura = Scadenze Dispensa, USP privacy salute | ⚡ Facile |
+| 2 | **Ciclo Mestruale Offline** | Mensile alta | Enorme | Privacy scandal 2022-23 → forte domanda per app offline, nessun account | Media |
+| 3 | **Gestore Abbonamenti** | Settimanale | Grande | Subscription fatigue 2026, nessun competitor offline semplice, SQLite = Scadenze Dispensa | ⚡ Facile |
+| 4 | **Bill Splitter** | Situazionale | Grande | Leader Tip N Split a 1.0 stella su 29.400 recensioni, uso universale | ⚡ Facile |
+| 5 | **Pomodoro Timer** | Quotidiana | Grande | Competitor abbandonati o con ads invasive, build semplicissima | ⚡ Facile |
+| 6 | **Promemoria Compleanni** | Alta (set & forget) | Grande | Competitor datati, notifiche + SQLite già noti | ⚡ Facile |
+| 7 | **Timer HIIT / Allenamento** | Quotidiana | Medio-grande | Fitness market, competitor con paywall aggressivo | Facile |
+| 8 | **Water Tracker Gamificato** | Quotidiana | Medio | Già analizzato, mercato in crescita, gamification aggiunge complessità | Media |
+| 9 | **Calcolatore Sconto** | Bassa | Molto grande | Altissimo volume scaricamenti, retention bassa = pochi ad impressions, build 2 giorni | ⚡ Facile |
+| 10 | **Rumore Bianco** | Alta | Grande | Competitor con paywall, alta retention (uso notturno), richiede audio assets | Media |
+| 11 | **Livella Digitale** | Bassa | Medio | Build 1-2 giorni (solo accelerometro), competitor con 10+ anni non aggiornati | ⚡ 1-2 giorni |
+| 12 | **Calcolatore Carburante** | Bassa | Medio | Utile per automobilisti, poche sessioni settimanali | ⚡ Facile |
+| 13 | **Contatore Universale** | Bassa | Medio | Build 1 giorno, tally counter digitale, competitor ad-heavy | ⚡ 1 giorno |
+| 14 | **App Parcheggio** | Bassa | Medio | Già analizzata, buona opportunità UI, richiede GPS (complessità extra) | Media |
+| 15 | **Calcolatore BMI** | Minima | Grande | Alto volume ricerche, retention quasi zero dopo primo uso, mercato saturo | ⚡ 1 giorno |
+| 16 | **Registro Manutenzione Auto** | Media | Piccolo | Nicchia fedele (alta loyalty), crescita lenta, mercato limitato | Facile |
+
+### Logica di priorità
+
+- **#1-3**: retention quotidiana/alta + mercato enorme + architettura già nota → massimo ROI
+- **#4-6**: mercato comprovato o opportunità chiara + build rapidissima
+- **#7-10**: validi ma con trade-off (complessità o retention bassa)
+- **#11-16**: utili per riempire il catalogo rapidamente con poco sforzo
