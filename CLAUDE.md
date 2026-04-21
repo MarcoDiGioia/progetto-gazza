@@ -15,31 +15,63 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Struttura del Monorepo
 
+Ogni app è un **git submodule** indipendente con il proprio repository GitHub e le proprie GitHub Actions.
+
 ```
-/Progetto Gazza/
+/Progetto Gazza/                          # repo: MarcoDiGioia/progetto-gazza
+├── .gitmodules                           # mappa dei submodule
 ├── apps/
-│   └── scadenze_dispensa/       # App attiva: traccia scadenze alimentari
-│       ├── mobile/              # React Native 0.85 (Android + iOS)
-│       │   ├── android/         # Package: com.progettogazza.scadenzedispensa
+│   └── scadenze_dispensa/               # submodule → MarcoDiGioia/scadenze-dispensa
+│       ├── .github/workflows/           # CI/CD proprie del submodule
+│       │   ├── deploy-production.yml    # trigger: push su main
+│       │   └── deploy-internal.yml     # trigger: push su develop
+│       ├── mobile/                      # React Native 0.85 (Android + iOS)
+│       │   ├── android/                 # Package: com.progettogazza.scadenzedispensa
 │       │   ├── ios/
 │       │   ├── src/
 │       │   │   ├── screens/
 │       │   │   ├── components/
-│       │   │   ├── services/    # DbService, AdsService, NotificheService
+│       │   │   ├── services/            # DbService, AdsService, NotificheService
 │       │   │   └── navigation/
-│       │   ├── babel.config.js  # Include transform-inline-environment-variables
+│       │   ├── babel.config.js          # Include transform-inline-environment-variables
 │       │   └── package.json
-│       ├── shared/              # Logica condivisa mobile/web
+│       ├── shared/                      # Logica condivisa mobile/web
 │       │   └── src/
-│       │       ├── models/      # Prodotto.ts, VoceSpesa.ts
-│       │       ├── context/     # ProdottiContext, SpesaContext
-│       │       ├── services/    # Interfacce DbService
+│       │       ├── models/              # Prodotto.ts, VoceSpesa.ts
+│       │       ├── context/             # ProdottiContext, SpesaContext
+│       │       ├── services/            # Interfacce DbService
 │       │       └── utils/
-│       │           ├── config/  # Sistema multi-ambiente (dev/test/prod)
+│       │           ├── config/          # Sistema multi-ambiente (dev/test/prod)
 │       │           └── constants.ts
-│       └── web/                 # Placeholder, non ancora implementato
-└── Piani/                       # Documenti di brainstorming e ricerca
+│       ├── store/                       # Contenuti Play Store (testi + prompt immagini)
+│       └── web/                         # Placeholder, non ancora implementato
+└── Piani/                               # Documenti di brainstorming e ricerca
 ```
+
+### Lavorare con i submodule
+
+```bash
+# Clonare il monorepo con tutti i submodule
+git clone --recurse-submodules https://github.com/MarcoDiGioia/progetto-gazza.git
+
+# Se già clonato senza --recurse-submodules
+git submodule update --init --recursive
+
+# Entrare nel submodule per fare modifiche
+cd apps/scadenze_dispensa
+git checkout main          # o develop per il branch di test
+# ... fai modifiche ...
+git add . && git commit -m "[scadenze-dispensa] ..."
+git push
+
+# Aggiornare il puntatore nel monorepo dopo un push nel submodule
+cd ../..
+git add apps/scadenze_dispensa
+git commit -m "update scadenze_dispensa submodule ref"
+git push
+```
+
+> **Regola:** le modifiche al codice dell'app vanno committate nel submodule (`apps/scadenze_dispensa`). Il monorepo tiene solo il puntatore al commit corrente del submodule.
 
 ---
 

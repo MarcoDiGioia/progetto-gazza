@@ -1,0 +1,3 @@
+[submodule "apps/scadenze_dispensa"]
+	path = apps/scadenze_dispensa
+	url = https://github.com/MarcoDiGioia/scadenze-dispensa.git
