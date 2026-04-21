@@ -16,7 +16,7 @@ const testConfig: AppConfig = {
   app: {
     name: 'Scadenze Dispensa Gratis',
     version: '1.0.0',
-    author: 'Progetto Gazza',
+    author: 'Marco Di Gioia',
     debugMode: true,
   },
 };

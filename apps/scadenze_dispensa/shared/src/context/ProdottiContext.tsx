@@ -17,6 +17,7 @@ export interface NotificheService {
 
 export interface AdsService {
   onProdottoAggiunto(): void;
+  onVoceSpesaAggiunta(): void;
 }
 
 interface ProdottiState {

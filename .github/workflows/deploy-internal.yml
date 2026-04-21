@@ -39,13 +39,13 @@ jobs:
       - name: Build AAB (test)
         working-directory: apps/scadenze_dispensa/mobile/android
         env:
+          ENV: test
           KEYSTORE_PATH: /tmp/release.keystore
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           ./gradlew bundleRelease \
-            -PENV=test \
             -Pandroid.injected.signing.store.file=$KEYSTORE_PATH \
             -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
             -Pandroid.injected.signing.key.alias=$KEY_ALIAS \

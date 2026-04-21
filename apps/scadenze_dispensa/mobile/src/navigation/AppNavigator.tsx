@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../screens/HomeScreen';
 import AggiungiProdottoScreen from '../screens/AggiungiProdottoScreen';
 import ListaSpesaScreen from '../screens/ListaSpesaScreen';
@@ -25,15 +25,15 @@ export function AppNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = 'home';
+          let iconName: string;
           if (route.name === 'Dispensa') {
-            iconName = focused ? 'kitchen' : 'kitchen';
+            iconName = focused ? 'restaurant' : 'restaurant-outline';
           } else if (route.name === 'Spesa') {
-            iconName = focused ? 'shopping-list' : 'shopping-list';
-          } else if (route.name === 'Impostazioni') {
-            iconName = focused ? 'settings' : 'settings';
+            iconName = focused ? 'cart' : 'cart-outline';
+          } else {
+            iconName = focused ? 'settings' : 'settings-outline';
           }
-          return <MaterialIcons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#EF4444',
         tabBarInactiveTintColor: '#9CA3AF',

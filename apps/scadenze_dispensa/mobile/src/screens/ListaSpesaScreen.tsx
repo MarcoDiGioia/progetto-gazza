@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text, SafeAreaView, ActivityIndicator, Alert, TextInput, Modal } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSpesa } from '@shared/context/SpesaContext';
 import type { VoceSpesa } from '@shared/models/VoceSpesa';
 import { toISOString } from '@shared/utils/dateUtils';
@@ -49,14 +49,14 @@ export default function ListaSpesaScreen() {
   const renderItem = ({ item }: { item: VoceSpesa }) => (
     <View style={styles.voceContainer}>
       <TouchableOpacity style={styles.checkbox} onPress={() => segnaVoceAcquistata(item.id!)}>
-        <MaterialIcons name="check-circle-outline" size={24} color="#22C55E" />
+        <Ionicons name="checkmark-circle-outline" size={24} color="#22C55E" />
       </TouchableOpacity>
       <View style={styles.voceContent}>
         <Text style={styles.voceName}>{item.nome}</Text>
         <Text style={styles.voceQty}>Qty: {item.quantita}</Text>
       </View>
       <TouchableOpacity style={styles.deleteButton} onPress={() => handleElimina(item.id!)}>
-        <MaterialIcons name="delete-outline" size={20} color="#EF4444" />
+        <Ionicons name="trash-outline" size={20} color="#EF4444" />
       </TouchableOpacity>
     </View>
   );
@@ -74,7 +74,7 @@ export default function ListaSpesaScreen() {
           <View style={styles.loadingContainer}><ActivityIndicator size="large" color="#EF4444" /></View>
         ) : state.voci.length === 0 ? (
           <View style={styles.emptyContainer}>
-            <MaterialIcons name="shopping-list" size={64} color="#D1D5DB" />
+            <Ionicons name="cart-outline" size={64} color="#D1D5DB" />
             <Text style={styles.emptyTitle}>Lista spesa vuota</Text>
           </View>
         ) : (
@@ -82,7 +82,7 @@ export default function ListaSpesaScreen() {
         )}
 
         <TouchableOpacity style={styles.fab} onPress={() => setShowAddModal(true)}>
-          <MaterialIcons name="add" size={28} color="#FFFFFF" />
+          <Ionicons name="add-outline" size={28} color="#FFFFFF" />
         </TouchableOpacity>
 
         <Modal visible={showAddModal} transparent animationType="fade" onRequestClose={() => !loading && setShowAddModal(false)}>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   voceName: { fontSize: 16, fontWeight: '600', color: '#1F2937', marginBottom: 4 },
   voceQty: { fontSize: 13, color: '#6B7280' },
   deleteButton: { padding: 8, marginLeft: 8 },
-  fab: { position: 'absolute', bottom: 80, right: 16, width: 56, height: 56, borderRadius: 28, backgroundColor: '#EF4444', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 },
+  fab: { position: 'absolute', bottom: 60, right: 16, width: 56, height: 56, borderRadius: 28, backgroundColor: '#EF4444', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 },
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'flex-end' },
   modalContent: { backgroundColor: '#FFFFFF', paddingHorizontal: 16, paddingVertical: 20, borderTopLeftRadius: 16, borderTopRightRadius: 16 },
   modalTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 16 },

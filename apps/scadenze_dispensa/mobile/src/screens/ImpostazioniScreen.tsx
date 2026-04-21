@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text, Alert, ActivityIndicator } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { dbService } from '../services/DbService';
 import { notificheService } from '../services/NotificheService';
 import { useProdotti } from '@shared/context/ProdottiContext';
@@ -90,39 +90,39 @@ export default function ImpostazioniScreen() {
           <View style={styles.card}>
             <TouchableOpacity style={styles.option} onPress={handleSvuotaProdotti} disabled={loading}>
               <View style={styles.optionContent}>
-                <MaterialIcons name="delete-outline" size={24} color="#EF4444" />
+                <Ionicons name="trash-outline" size={24} color="#EF4444" />
                 <View style={styles.optionText}>
                   <Text style={styles.optionTitle}>Svuota Dispensa</Text>
                   <Text style={styles.optionSubtitle}>Elimina tutti i prodotti</Text>
                 </View>
               </View>
-              <MaterialIcons name="chevron-right" size={24} color="#9CA3AF" />
+              <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
             </TouchableOpacity>
 
             <View style={styles.divider} />
 
             <TouchableOpacity style={styles.option} onPress={handleSvuotaListaSpesa} disabled={loading}>
               <View style={styles.optionContent}>
-                <MaterialIcons name="delete-outline" size={24} color="#EF4444" />
+                <Ionicons name="trash-outline" size={24} color="#EF4444" />
                 <View style={styles.optionText}>
                   <Text style={styles.optionTitle}>Svuota Lista Spesa</Text>
                   <Text style={styles.optionSubtitle}>Elimina tutti gli articoli</Text>
                 </View>
               </View>
-              <MaterialIcons name="chevron-right" size={24} color="#9CA3AF" />
+              <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
             </TouchableOpacity>
 
             <View style={styles.divider} />
 
             <TouchableOpacity style={styles.option} onPress={handleSvuotaTutto} disabled={loading}>
               <View style={styles.optionContent}>
-                <MaterialIcons name="warning" size={24} color="#DC2626" />
+                <Ionicons name="warning-outline" size={24} color="#DC2626" />
                 <View style={styles.optionText}>
                   <Text style={styles.optionTitle}>Svuota Tutto</Text>
                   <Text style={styles.optionSubtitle}>Elimina tutti i dati</Text>
                 </View>
               </View>
-              {loading ? <ActivityIndicator size="small" color="#EF4444" /> : <MaterialIcons name="chevron-right" size={24} color="#9CA3AF" />}
+              {loading ? <ActivityIndicator size="small" color="#EF4444" /> : <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />}
             </TouchableOpacity>
           </View>
         </View>

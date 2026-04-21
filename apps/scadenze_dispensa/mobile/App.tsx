@@ -53,7 +53,7 @@ function App() {
     <GestureHandlerRootView style={styles.container}>
       <NavigationContainer>
         <ProdottiProvider dbService={dbService} notificheService={notificheService} adsService={adsService}>
-          <SpesaProvider dbService={dbService}>
+          <SpesaProvider dbService={dbService} adsService={adsService}>
             <AppNavigator />
           </SpesaProvider>
         </ProdottiProvider>

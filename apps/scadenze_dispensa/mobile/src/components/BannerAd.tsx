@@ -1,16 +1,20 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { BannerAd as RNBannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { BannerAd as RNBannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import { ADS_CONFIG } from '@shared/utils/constants';
 
-export default function BannerAd() {
+interface BannerAdProps {
+  size?: BannerAdSize;
+}
+
+export default function BannerAd({ size }: BannerAdProps) {
   return (
     <View style={styles.container}>
       <RNBannerAd
         unitId={ADS_CONFIG.BANNER_ID}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        size={size??BannerAdSize.BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
+          requestNonPersonalizedAdsOnly: false,
         }}
       />
     </View>

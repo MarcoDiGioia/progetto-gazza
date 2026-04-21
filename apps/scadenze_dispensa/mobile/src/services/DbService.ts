@@ -74,7 +74,7 @@ class DbService implements IDbService {
     const result = await this.db.execute(
       `SELECT * FROM prodotti WHERE consumato = 0 ORDER BY dataScadenza ASC`
     );
-    return (result.rows?._array ?? []) as Prodotto[];
+    return (result.rows ?? []) as unknown as Prodotto[];
   }
 
   async segnaProdottoConsumato(id: number): Promise<void> {
@@ -97,7 +97,7 @@ class DbService implements IDbService {
 
     await this.db.execute(
       `UPDATE prodotti SET nome=?, dataScadenza=?, categoria=?, quantita=?, consumato=? WHERE id=?`,
-      [prodotto.nome, prodotto.dataScadenza, prodotto.categoria, prodotto.quantita, prodotto.consumato, prodotto.id]
+      [prodotto.nome, prodotto.dataScadenza, prodotto.categoria, prodotto.quantita, prodotto.consumato, prodotto.id!]
     );
   }
 
@@ -117,7 +117,7 @@ class DbService implements IDbService {
     const result = await this.db.execute(
       `SELECT * FROM lista_spesa WHERE acquistato = 0 ORDER BY dataAggiunta DESC`
     );
-    return (result.rows?._array ?? []) as VoceSpesa[];
+    return (result.rows ?? []) as unknown as VoceSpesa[];
   }
 
   async segnaVoceAcquistata(id: number): Promise<void> {
@@ -140,7 +140,7 @@ class DbService implements IDbService {
 
     await this.db.execute(
       `UPDATE lista_spesa SET nome=?, quantita=?, acquistato=? WHERE id=?`,
-      [voce.nome, voce.quantita, voce.acquistato, voce.id]
+      [voce.nome, voce.quantita, voce.acquistato, voce.id!]
     );
   }
 

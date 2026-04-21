@@ -49,12 +49,17 @@ export interface SpesaContextType {
 
 export const SpesaContext = createContext<SpesaContextType | undefined>(undefined);
 
+interface AdsServiceSpesa {
+  onVoceSpesaAggiunta(): void;
+}
+
 interface SpesaProviderProps {
   children: React.ReactNode;
   dbService: IDbService;
+  adsService?: AdsServiceSpesa;
 }
 
-export function SpesaProvider({ children, dbService }: SpesaProviderProps) {
+export function SpesaProvider({ children, dbService, adsService }: SpesaProviderProps) {
   const [state, dispatch] = useReducer(spesaReducer, {
     voci: [],
     loading: false,
@@ -80,6 +85,9 @@ export function SpesaProvider({ children, dbService }: SpesaProviderProps) {
         const newId = await dbService.aggiungiVoceSpesa(voce);
         const nuovaVoce: VoceSpesa = { ...voce, id: newId };
         dispatch({ type: 'ADD_VOCE', payload: nuovaVoce });
+        if (adsService) {
+          adsService.onVoceSpesaAggiunta();
+        }
       } catch (error) {
         dispatch({
           type: 'SET_ERROR',
@@ -87,7 +95,7 @@ export function SpesaProvider({ children, dbService }: SpesaProviderProps) {
         });
       }
     },
-    [dbService]
+    [dbService, adsService]
   );
 
   const segnaVoceAcquistata = useCallback(

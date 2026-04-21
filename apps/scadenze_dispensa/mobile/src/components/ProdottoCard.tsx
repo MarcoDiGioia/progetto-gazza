@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import type { Prodotto } from '@shared/models/Prodotto';
 import { getGiorniMancanti, getSemaforoColore, getSemaforoColorHex } from '@shared/utils/semaforoUtils';
 import { formatDataScadenza } from '@shared/utils/dateUtils';
@@ -59,16 +59,16 @@ export default function ProdottoCard({ prodotto, onConsumato, onElimina }: Prodo
         style={styles.menuButton}
         onPress={() => setMenuOpen(!menuOpen)}
       >
-        <MaterialIcons name="more-vert" size={24} color="#6B7280" />
+        <Ionicons name="ellipsis-vertical" size={24} color="#6B7280" />
       </TouchableOpacity>
       {menuOpen && (
         <View style={styles.dropdown}>
           <TouchableOpacity style={styles.dropdownItem} onPress={handleConsumato}>
-            <MaterialIcons name="check-circle-outline" size={20} color="#22C55E" />
+            <Ionicons name="checkmark-circle-outline" size={20} color="#22C55E" />
             <Text style={styles.dropdownText}>Consumato</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.dropdownItem} onPress={handleElimina}>
-            <MaterialIcons name="delete-outline" size={20} color="#EF4444" />
+            <Ionicons name="trash-outline" size={20} color="#EF4444" />
             <Text style={styles.dropdownText}>Elimina</Text>
           </TouchableOpacity>
         </View>

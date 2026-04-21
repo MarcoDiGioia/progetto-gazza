@@ -5,6 +5,7 @@ class AdsService {
   private static instance: AdsService;
   private interstitialAd: InterstitialAd | null = null;
   private prodottiAggiunti = 0;
+  private voceSpesaAggiunta = 0;
   private adLoaded = false;
   private isInitialized = false;
 
@@ -52,7 +53,14 @@ class AdsService {
 
   onProdottoAggiunto(): void {
     this.prodottiAggiunti++;
-    if (this.prodottiAggiunti % 3 === 0 && this.adLoaded) {
+    if (this.prodottiAggiunti % 5 === 0 && this.adLoaded) {
+      this.showInterstitial();
+    }
+  }
+
+  onVoceSpesaAggiunta(): void {
+    this.voceSpesaAggiunta++;
+    if (this.voceSpesaAggiunta % 5 === 0 && this.adLoaded) {
       this.showInterstitial();
     }
   }
@@ -73,6 +81,10 @@ class AdsService {
 
   resetProdottiCounter(): void {
     this.prodottiAggiunti = 0;
+  }
+
+  resetVoceSpesaCounter(): void {
+    this.voceSpesaAggiunta = 0;
   }
 }
 

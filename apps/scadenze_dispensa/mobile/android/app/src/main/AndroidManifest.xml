@@ -10,6 +10,10 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:supportsRtl="true">
+      <!-- AdMob App ID — in prod sostituire con ID reale da AdMob Console -->
+      <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3940256099942544~3347511713"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

@@ -14,9 +14,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@shared/*": ["../shared/src/*"]
+      "@shared/*": ["../shared/src/*"],
+      "react": ["./node_modules/@types/react"],
+      "react-native": ["./node_modules/@types/react-native"],
+      "date-fns": ["./node_modules/date-fns"],
+      "date-fns/*": ["./node_modules/date-fns/*"]
     }
   },
-  "include": ["src", "index.js"],
+  "include": ["src", "index.js", "App.tsx", "../shared/src"],
   "exclude": ["node_modules"]
 }

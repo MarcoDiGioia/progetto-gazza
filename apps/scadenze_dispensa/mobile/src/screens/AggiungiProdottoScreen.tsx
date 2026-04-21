@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text, TextInput, Picker, Alert, ActivityIndicator } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text, TextInput, Alert, ActivityIndicator } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useProdotti } from '@shared/context/ProdottiContext';
 import type { Prodotto, CategoriaProdotto } from '@shared/models/Prodotto';
@@ -68,7 +69,7 @@ export default function AggiungiProdottoScreen({ navigation }: Props) {
           <View style={styles.section}>
             <Text style={styles.label}>Categoria</Text>
             <View style={styles.pickerContainer}>
-              <Picker selectedValue={categoria} onValueChange={(value) => setCategoria(value as CategoriaProdotto)} enabled={!loading}>
+              <Picker selectedValue={categoria} onValueChange={(value: CategoriaProdotto) => setCategoria(value)} enabled={!loading}>
                 {CATEGORIE.map((cat) => <Picker.Item key={cat} label={cat} value={cat} />)}
               </Picker>
             </View>
@@ -82,7 +83,7 @@ export default function AggiungiProdottoScreen({ navigation }: Props) {
           <View style={styles.section}>
             <Text style={styles.label}>Data Scadenza *</Text>
             <TouchableOpacity style={styles.dateButton} onPress={() => setShowDatePicker(true)} disabled={loading}>
-              <MaterialIcons name="calendar-today" size={20} color="#6B7280" />
+              <Ionicons name="calendar-outline" size={20} color="#6B7280" />
               <Text style={styles.dateButtonText}>{formatDataScadenza(toISOString(dataScadenza))}</Text>
             </TouchableOpacity>
           </View>
