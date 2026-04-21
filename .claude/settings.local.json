@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:play.google.com)",
+      "WebFetch(domain:sudokuaday.com)",
+      "WebFetch(domain:splittyapp.com)",
+      "WebFetch(domain:sudokutimes.com)",
+      "WebFetch(domain:edimakor.hitpaw.com)",
+      "Bash(git clone *)",
+      "Bash(./bin/flutter --version)",
+      "WebFetch(domain:capacitorjs.com)",
+      "Bash(mkdir -p \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/{mobile,web,shared}\")",
+      "Bash(mkdir -p \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/shared/src/{models,services,utils,context}\")",
+      "Bash(mkdir -p \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/mobile/src/{screens,components,navigation}\")",
+      "Bash(mkdir -p \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/web/src/{pages,components,layout}\")",
+      "Bash(npm install *)",
+      "Bash(timeout 20 npm start)",
+      "Bash(npm start *)",
+      "Bash(kill %1)",
+      "Bash(adb version *)",
+      "Bash(java -version)",
+      "Read(//Users/marcodigioia/Library/Android/**)",
+      "Bash(brew --version)",
+      "Read(//private/tmp/**)",
+      "Bash(npx react-native@0.76.2 init ScadenzaDispensa --package-name com.progettogazza.scadenzedispensa --skip-install)",
+      "Bash(npx @react-native-community/cli@latest init ScadenzaDispensa --package-name com.progettogazza.scadenzedispensa --skip-install --version 0.76.2)",
+      "Bash(cp -r /tmp/ScadenzaDispensa/android \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/mobile/android\")",
+      "Bash(cp -r /tmp/ScadenzaDispensa/ios \"/Users/marcodigioia/Sviluppo/Progetto Gazza/apps/scadenze_dispensa/mobile/ios\")",
+      "Skill(update-config)",
+      "Bash(gh *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

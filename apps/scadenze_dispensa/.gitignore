@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment (i file .env.* con chiavi reali non vanno in git)
+.env
+.env.local
+.env.prod.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Android build
+mobile/android/app/build/
+mobile/android/.gradle/
+mobile/android/local.properties
+
+# iOS build
+mobile/ios/build/
+mobile/ios/Pods/
+mobile/ios/*.xcworkspace
+
+# Fastlane
+mobile/fastlane/report.xml
+mobile/fastlane/Preview.html
+mobile/fastlane/screenshots/
+mobile/fastlane/test_output/
+
+# Keystore (mai in git)
+*.keystore
+*.jks

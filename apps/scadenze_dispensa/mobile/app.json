@@ -1,0 +1,10 @@
+{
+  "name": "scadenze_dispensa",
+  "displayName": "Scadenze Dispensa Gratis",
+  "android": {
+    "package": "com.progettogazza.scadenzedispensa"
+  },
+  "ios": {
+    "bundleIdentifier": "com.progettogazza.scadenzedispensa"
+  }
+}
