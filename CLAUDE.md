@@ -218,15 +218,19 @@ Ruthlessly iterate on these lessons until mistake rate drops
 
 - Review lessons at session start for relevant project
 
-### 4. Verification Before Done
+### 4. Verification Before Done — REGOLA ASSOLUTA
 
-- Never mark a task complete without proving it works
+**Mai pushare codice non testato.** Ogni push deve avere build verificata.
 
-- Diff behavior between main and your changes when relevant
+Checklist obbligatoria prima di ogni `git push`:
+1. `npm run type-check` → zero errori TypeScript
+2. Build Android: `npm run android` → l'app si avvia sul device/emulatore senza crash
+3. Flusso modificato testato manualmente end-to-end
+4. Se la build fallisce: bloccarsi, risolvere, solo poi procedere
+
+"Sembra giusto" non è sufficiente — dimostrare con output concreto (log, build success).
 
 Ask yourself: "Would a staff engineer approve this?"
-
-- Run tests, check logs, demonstrate conrectness
 
 ### 5. Demand Elegance (Balanced)
 
