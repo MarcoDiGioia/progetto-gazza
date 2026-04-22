@@ -21,30 +21,31 @@ Ogni app è un **git submodule** indipendente con il proprio repository GitHub e
 /Progetto Gazza/                          # repo: MarcoDiGioia/progetto-gazza
 ├── .gitmodules                           # mappa dei submodule
 ├── apps/
-│   └── scadenze_dispensa/               # submodule → MarcoDiGioia/scadenze-dispensa
+│   ├── scadenze_dispensa/               # submodule → MarcoDiGioia/scadenze-dispensa
+│   └── ricorda_farmaci/                 # submodule → MarcoDiGioia/ricorda-farmaci
 │       ├── .github/workflows/           # CI/CD proprie del submodule
 │       │   ├── deploy-production.yml    # trigger: push su main
-│       │   └── deploy-internal.yml     # trigger: push su develop
+│       │   └── deploy-internal.yml      # trigger: push su develop
+│       ├── ENVIRONMENTS.md              # Documentazione sistema multi-ambiente
 │       ├── mobile/                      # React Native 0.85 (Android + iOS)
-│       │   ├── android/                 # Package: com.progettogazza.scadenzedispensa
-│       │   ├── ios/
+│       │   ├── android/                 # Package: com.progettogazza.<appname>
 │       │   ├── src/
 │       │   │   ├── screens/
 │       │   │   ├── components/
 │       │   │   ├── services/            # DbService, AdsService, NotificheService
 │       │   │   └── navigation/
 │       │   ├── babel.config.js          # Include transform-inline-environment-variables
+│       │   ├── .env.example             # Documenta la variabile ENV
 │       │   └── package.json
 │       ├── shared/                      # Logica condivisa mobile/web
 │       │   └── src/
-│       │       ├── models/              # Prodotto.ts, VoceSpesa.ts
-│       │       ├── context/             # ProdottiContext, SpesaContext
+│       │       ├── models/
+│       │       ├── context/
 │       │       ├── services/            # Interfacce DbService
 │       │       └── utils/
-│       │           ├── config/          # Sistema multi-ambiente (dev/test/prod)
+│       │           ├── config/          # Sistema multi-ambiente (dev/test/prod) ← OBBLIGATORIO
 │       │           └── constants.ts
-│       ├── store/                       # Contenuti Play Store (testi + prompt immagini)
-│       └── web/                         # Placeholder, non ancora implementato
+│       └── store/                       # Contenuti Play Store
 └── Piani/                               # Documenti di brainstorming e ricerca
 ```
 
@@ -58,86 +59,122 @@ git clone --recurse-submodules https://github.com/MarcoDiGioia/progetto-gazza.gi
 git submodule update --init --recursive
 
 # Entrare nel submodule per fare modifiche
-cd apps/scadenze_dispensa
+cd apps/<nome-app>
 git checkout main          # o develop per il branch di test
 # ... fai modifiche ...
-git add . && git commit -m "[scadenze-dispensa] ..."
+git add . && git commit -m "[nome-app] ..."
 git push
 
 # Aggiornare il puntatore nel monorepo dopo un push nel submodule
 cd ../..
-git add apps/scadenze_dispensa
-git commit -m "update scadenze_dispensa submodule ref"
+git add apps/<nome-app>
+git commit -m "update <nome-app> submodule ref"
 git push
 ```
 
-> **Regola:** le modifiche al codice dell'app vanno committate nel submodule (`apps/scadenze_dispensa`). Il monorepo tiene solo il puntatore al commit corrente del submodule.
+> **Regola:** le modifiche al codice dell'app vanno committate nel submodule. Il monorepo tiene solo il puntatore al commit corrente del submodule.
 
 ---
 
-## App: scadenze_dispensa
+## Standard obbligatori per ogni app
 
-### Comandi di sviluppo
+Ogni app nel monorepo DEVE implementare questi pattern. Sono non negoziabili.
+
+### Sistema di configurazione multi-ambiente (OBBLIGATORIO)
+
+La variabile `ENV=dev|test|prod` viene iniettata da Babel al bundle time. **Non è una selezione runtime.** Ogni app deve avere questa struttura:
+
+```
+shared/src/utils/
+├── config/
+│   ├── types.ts     # Interfaccia AppConfig
+│   ├── index.ts     # Legge process.env.ENV, esporta il config corretto
+│   ├── dev.ts       # Google Test IDs AdMob, DB: <app>_dev.db, debugMode: true
+│   ├── test.ts      # Google Test IDs AdMob, DB: <app>_test.db, debugMode: true
+│   └── prod.ts      # ID AdMob reali (da inserire), DB: <app>.db, debugMode: false
+└── constants.ts     # Ri-esporta ADS_CONFIG, NOTIFICHE_CONFIG, DB_CONFIG, APP_INFO
+```
+
+Regole:
+- I servizi importano solo da `constants.ts`, **mai** da `config/` direttamente
+- Per aggiungere un'impostazione: aggiornare `types.ts` → tutti e tre i file env → `constants.ts`
+- Documentare le differenze tra ambienti in `ENVIRONMENTS.md` nella root dell'app
+- Includere `mobile/.env.example` con `ENV=dev` come default documentato
+
+#### Comandi standard (validi per ogni app)
 
 ```bash
-cd apps/scadenze_dispensa/mobile
-
-npm install
-
 # Metro bundler
-npm run start          # dev (default)
-npm run start:test     # test
-npm run start:prod     # prod
+npm run start          # alias start:dev
+npm run start:dev      # ENV=dev
+npm run start:test     # ENV=test
+npm run start:prod     # ENV=prod
 
 # Android
-npm run android        # dev
+npm run android        # alias android:dev
+npm run android:dev
 npm run android:test
 npm run android:prod
 
-# iOS
-npm run ios            # dev
-npm run ios:test
-npm run ios:prod
-
+# Qualità
 npm run lint
 npm run type-check
-npm run test
 ```
 
-### Sistema di configurazione ambienti
+### Architettura dei servizi (OBBLIGATORIO)
 
-La variabile `ENV=dev|test|prod` viene iniettata da Babel al bundle time. Non è una selezione runtime.
-
-```
-shared/src/utils/config/
-├── index.ts    # legge process.env.ENV, esporta il config corretto
-├── dev.ts      # Google Test IDs AdMob, DB: scadenze_dispensa_dev.db, debugMode: true
-├── test.ts     # Google Test IDs AdMob, DB: scadenze_dispensa_test.db, debugMode: true
-├── prod.ts     # ID AdMob reali (da inserire), DB: scadenze_dispensa.db, debugMode: false
-└── types.ts    # Interfaccia AppConfig
-```
-
-`constants.ts` ri-esporta `ADS_CONFIG`, `NOTIFICHE_CONFIG`, `DB_CONFIG`, `APP_INFO` leggendo dal config attivo. I servizi importano solo da `constants.ts`, non da `config/` direttamente.
-
-Per aggiungere una nuova impostazione configurabile: aggiungerla a `types.ts`, poi a tutti e tre i file env, poi esporla in `constants.ts`.
-
-### Architettura dei servizi
-
-Tutti i servizi sono singleton (`getInstance()`). Vengono inizializzati in sequenza in `App.tsx`:
+Tutti i servizi sono **singleton** (`getInstance()`). Vengono inizializzati in sequenza in `App.tsx`:
 ```
 dbService.init() → notificheService.init() → adsService.init()
 ```
-I context (`ProdottiContext`, `SpesaContext`) sono definiti in `shared/` ma ricevono le istanze dei servizi tramite props/injection — non le importano direttamente. Questo permette di riutilizzare i context nella futura versione web con implementazioni diverse dei servizi.
+I context sono definiti in `shared/` ma ricevono le istanze dei servizi tramite **props/injection** — non le importano direttamente. Questo permette di riutilizzare i context nella futura versione web.
 
-### Path alias (TypeScript + Babel)
-- `@/*` → `mobile/src/*`
-- `@shared/*` → `shared/src/*`
+### Path alias TypeScript + Babel (OBBLIGATORIO)
+
+```json
+// tsconfig.json paths
+"@/*":       ["src/*"]           // mobile/src/
+"@shared/*": ["../shared/src/*"] // shared/src/
+```
+
+```javascript
+// babel.config.js aliases
+'@':       './src'
+'@shared': '../shared/src'
+```
+
+Includere sempre `"ignoreDeprecations": "6.0"` nel `tsconfig.json` per sopprimere i warning di `@tsconfig/react-native` (baseUrl, moduleResolution deprecati in TS 7).
+
+### CI/CD (OBBLIGATORIO)
+
+Ogni app ha:
+- `.github/workflows/deploy-production.yml` — trigger su `main`, ENV=prod, track=production
+- `.github/workflows/deploy-internal.yml` — trigger su `develop`, ENV=test, track=internal
+- Package name Android: `com.progettogazza.<appname>`
+
+---
+
+## App presenti
+
+### scadenze_dispensa → MarcoDiGioia/scadenze-dispensa
+
+```bash
+cd apps/scadenze_dispensa/mobile && npm install
+npm run android   # avvia con config dev
+```
+
+### ricorda_farmaci → MarcoDiGioia/ricorda-farmaci
+
+```bash
+cd apps/ricorda_farmaci/mobile && npm install
+npm run android   # avvia con config dev
+```
 
 ---
 
 ## Workflow Git
 
-- Commit in inglese: `[scadenze-dispensa] brief description`
+- Commit in inglese: `[nome-app] brief description`
 - Branch: `feature/nome-app/descrizione`, `bugfix/nome-app/descrizione`
 - `main` = codice pronto per la produzione
 
