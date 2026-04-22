@@ -1,3 +1,6 @@
 [submodule "apps/scadenze_dispensa"]
 	path = apps/scadenze_dispensa
 	url = https://github.com/MarcoDiGioia/scadenze-dispensa.git
+[submodule "apps/ricorda_farmaci"]
+	path = apps/ricorda_farmaci
+	url = https://github.com/MarcoDiGioia/ricorda-farmaci.git
