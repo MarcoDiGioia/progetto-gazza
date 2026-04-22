@@ -224,9 +224,8 @@ Ruthlessly iterate on these lessons until mistake rate drops
 
 Checklist obbligatoria prima di ogni `git push`:
 1. `npm run type-check` → zero errori TypeScript
-2. Build Android: `npm run android` → l'app si avvia sul device/emulatore senza crash
-3. Flusso modificato testato manualmente end-to-end
-4. Se la build fallisce: bloccarsi, risolvere, solo poi procedere
+2. Build Android: `cd android && ./gradlew assembleDebug` → build completata senza errori
+3. Se la build fallisce: bloccarsi, risolvere, solo poi procedere
 
 "Sembra giusto" non è sufficiente — dimostrare con output concreto (log, build success).
 
