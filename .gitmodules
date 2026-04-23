@@ -4,3 +4,6 @@
 [submodule "apps/ricorda_farmaci"]
 	path = apps/ricorda_farmaci
 	url = https://github.com/MarcoDiGioia/ricorda-farmaci.git
+[submodule "apps/luna"]
+	path = apps/luna
+	url = https://github.com/MarcoDiGioia/luna.git
