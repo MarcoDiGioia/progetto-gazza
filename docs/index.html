@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progetto Gazza — Privacy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #f9f9f9;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    p { color: #555; margin-bottom: 1.5rem; }
+    .app-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .app-list a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .app-list a:hover { background: #f5f5f5; }
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .green { background: #4caf50; }
+    .blue  { background: #1976d2; }
+    .purple { background: #8e24aa; }
+    .footer { margin-top: 2rem; font-size: 0.85rem; color: #aaa; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Progetto Gazza</h1>
+    <p>Privacy policy delle app sviluppate da Marco Di Gioia.</p>
+    <ul class="app-list">
+      <li>
+        <a href="/progetto-gazza/scadenze-dispensa/privacy.html">
+          <span class="dot green"></span>
+          Scadenze Dispensa — Privacy Policy
+        </a>
+      </li>
+      <li>
+        <a href="/progetto-gazza/ricorda-farmaci/privacy.html">
+          <span class="dot blue"></span>
+          Ricorda Farmaci — Privacy Policy
+        </a>
+      </li>
+      <li>
+        <a href="/progetto-gazza/luna/privacy.html">
+          <span class="dot purple"></span>
+          Luna — Privacy Policy
+        </a>
+      </li>
+    </ul>
+    <div class="footer">© 2025 Marco Di Gioia</div>
+  </div>
+</body>
+</html>
