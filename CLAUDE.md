@@ -74,6 +74,33 @@ git push
 
 > **Regola:** le modifiche al codice dell'app vanno committate nel submodule. Il monorepo tiene solo il puntatore al commit corrente del submodule.
 
+### Sincronizzazione automatica (OBBLIGATORIO per ogni nuova app)
+
+Il monorepo aggiorna automaticamente i puntatori dei submodule tramite GitHub Actions:
+
+- **`develop` del monorepo** segue sempre `develop` di tutti i subrepo
+- **`main` del monorepo** segue sempre `main` di tutti i subrepo
+
+**Come funziona:**
+1. Il subrepo conclude il deploy → invia un `repository_dispatch` al monorepo con il branch (`develop` o `main`)
+2. Il workflow `sync-submodules.yml` del monorepo si attiva, fa checkout del branch corretto, aggiorna i puntatori di tutti i submodule e pusha
+
+**Segreto richiesto in ogni subrepo:** `PAT_MONOREPO_SYNC` — Personal Access Token GitHub con scope `repo`, che deve avere accesso al repo `MarcoDiGioia/progetto-gazza`. Lo stesso PAT va aggiunto anche in `progetto-gazza` (per permettere al workflow di sync di pushare).
+
+**Step da aggiungere al termine di ogni `deploy-internal.yml` di un subrepo:**
+```yaml
+      - name: Notify parent monorepo to sync submodule ref
+        if: success()
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.PAT_MONOREPO_SYNC }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/MarcoDiGioia/progetto-gazza/dispatches \
+            -d '{"event_type":"submodule-updated","client_payload":{"branch":"develop"}}'
+```
+
+Per `deploy-production.yml` usare `"branch":"main"` nel payload.
+
 ---
 
 ## Standard obbligatori per ogni app

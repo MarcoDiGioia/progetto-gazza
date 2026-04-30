@@ -1,0 +1,55 @@
+name: Sync Submodule Refs
+
+on:
+  repository_dispatch:
+    types: [submodule-updated]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch del monorepo da sincronizzare (develop o main)'
+        required: true
+        default: 'develop'
+        type: choice
+        options:
+          - develop
+          - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Determine target branch
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "name=${{ github.event.client_payload.branch }}" >> $GITHUB_OUTPUT
+          else
+            echo "name=${{ inputs.branch }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout ${{ steps.branch.outputs.name }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.name }}
+          token: ${{ secrets.PAT_MONOREPO_SYNC }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Update all submodules to latest ${{ steps.branch.outputs.name }}
+        run: |
+          git submodule foreach "git fetch origin ${{ steps.branch.outputs.name }} && git checkout ${{ steps.branch.outputs.name }} && git pull origin ${{ steps.branch.outputs.name }}"
+
+      - name: Commit and push if refs changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps/
+          if ! git diff --staged --quiet; then
+            git commit -m "ci: sync submodule refs to latest ${{ steps.branch.outputs.name }}"
+            git push
+          else
+            echo "Submodule refs already up to date, nothing to commit."
+          fi
